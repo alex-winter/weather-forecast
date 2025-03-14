@@ -89,7 +89,7 @@ function App() {
               <h2 className="text-center">5-Day Weather Forecast</h2>
               <div className="row">
                 {weather.map((day, index) => (
-                    <div key={index} className="col-md-4 mb-3">
+                    <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
                       <div className="card">
                         <div className="card-body">
                           <h5 className="card-title">{day.date}</h5>
