@@ -17,7 +17,15 @@ export type WeatherForecast = {
  */
 export async function getWeatherForecast(location: string): Promise<WeatherForecast[] | null> {
     try {
-        const response = await fetch(`${config.weatherApi.forecast}?key=${config.weatherApi.apiKey}&q=${location}&days=5&aqi=no&alerts=no`);
+        const queryParameters = new URLSearchParams({
+            key: config.weatherApi.apiKey, // API key as string
+            q: location,                    // Location is already a string
+            days: '5',                      // Days is a number, convert it to string
+            aqi: 'no',                      // AQI as a string
+            alerts: 'no'                    // Alerts as a string
+        });
+
+        const response = await fetch(`${config.weatherApi.forecast}?${queryParameters.toString()}`);
 
         if (!response.ok) {
             throw new Error("Failed to fetch weather data");
