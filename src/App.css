@@ -5,3 +5,19 @@ body {
 .search-container {
     border-radius: 4px;
 }
+
+.weather-icon {
+    font-size: 6em;
+}
+
+.weather-icon.fa-sun {
+    color: #ffb700;
+}
+
+.weather-icon.fa-cloud {
+    color: #9a9a9a;
+}
+
+.weather-icon.fa-cloud-rain {
+    color: #0a73c9;
+}

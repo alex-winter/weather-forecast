@@ -34,16 +34,17 @@ export async function getWeatherForecast(location: string): Promise<WeatherForec
         }
 
         const data = await response.json();
-
-        const forecast: WeatherForecast[] = data.forecast.forecastday.map((day: any) => ({
-            date: day.date,
-            weatherDescription: day.day.condition.text,
-            temperature: {
-                high: day.day.maxtemp_c,
-                low: day.day.mintemp_c,
-            },
-            windSpeed: day.day.maxwind_kph,
-        }));
+        const forecast: WeatherForecast[] = data.forecast.forecastday.map(
+            (day: any) => ({
+                date: day.date,
+                weatherDescription: day.day.condition.text,
+                temperature: {
+                    high: day.day.maxtemp_c,
+                    low: day.day.mintemp_c,
+                },
+                windSpeed: day.day.maxwind_kph,
+            })
+        );
 
         return forecast;
     } catch (error) {
