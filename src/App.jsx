@@ -38,7 +38,7 @@ function App() {
             <ul className="list-group">
               {locations.map((loc) => (
                   <li key={loc.id} className="list-group-item">
-                    {loc.name}, {loc.country} ({loc.latitude}, {loc.longitude})
+                    {loc.name}, {loc.country} 
                   </li>
               ))}
             </ul>
