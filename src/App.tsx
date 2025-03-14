@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import {LocationResult, searchLocations} from "./services/fetch-location";
+import { LocationResult, searchLocations } from "./services/fetch-location";
 import { getWeatherForecast, WeatherForecast } from "./services/fetch-weather";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faCloud, faCloudRain, faSnowflake, faWind } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import React from "react";
@@ -30,6 +32,25 @@ function App() {
 
     const forecast = await getWeatherForecast(name); // Fetch the weather forecast using the selected location
     setWeather(forecast); // Set the weather forecast in state
+  };
+
+  // Function to map weather description to Font Awesome icons
+  const getWeatherIcon = (description: string) => {
+    switch (description.toLowerCase()) {
+      case 'sunny':
+        return <FontAwesomeIcon icon={faSun} />;
+      case 'cloudy':
+        return <FontAwesomeIcon icon={faCloud} />;
+      case 'rain':
+      case 'showers':
+        return <FontAwesomeIcon icon={faCloudRain} />;
+      case 'snow':
+        return <FontAwesomeIcon icon={faSnowflake} />;
+      case 'windy':
+        return <FontAwesomeIcon icon={faWind} />;
+      default:
+        return <FontAwesomeIcon icon={faCloud} />;
+    }
   };
 
   return (
@@ -66,13 +87,23 @@ function App() {
         {weather && (
             <div className="mt-4">
               <h2 className="text-center">5-Day Weather Forecast</h2>
-              <ul className="list-group">
+              <div className="row">
                 {weather.map((day, index) => (
-                    <li key={index} className="list-group-item">
-                      <strong>{day.date}</strong>: {day.weatherDescription}, High: {day.temperature.high}°C, Low: {day.temperature.low}°C, Wind Speed: {day.windSpeed} km/h
-                    </li>
+                    <div key={index} className="col-md-4 mb-3">
+                      <div className="card">
+                        <div className="card-body">
+                          <h5 className="card-title">{day.date}</h5>
+                          <p className="card-text">
+                            {getWeatherIcon(day.weatherDescription)} <strong>{day.weatherDescription}</strong><br />
+                            High: {day.temperature.high}°C<br />
+                            Low: {day.temperature.low}°C<br />
+                            {getWeatherIcon('Wind Speed')} Wind Speed: {day.windSpeed} km/h
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                 ))}
-              </ul>
+              </div>
             </div>
         )}
       </div>
