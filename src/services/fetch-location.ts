@@ -1,4 +1,4 @@
-import {config} from '../config'
+import { config } from '../config';
 
 export type LocationResult = {
   id: number;
@@ -11,12 +11,12 @@ export type LocationResult = {
 };
 
 /**
- * Fetches matching locations based on a search query.
+ * Fetches matching locations based on a search query and removes duplicates by name.
  *
  * @param query - The location name or postal code to search for.
  * @param count - Number of results to return (default: 5).
  *
- * @returns Array of matching locations or null if an error occurs.
+ * @returns Array of unique matching locations or null if an error occurs.
  */
 export async function searchLocations(query: string, count: number = 5): Promise<LocationResult[] | null> {
   try {
@@ -32,8 +32,11 @@ export async function searchLocations(query: string, count: number = 5): Promise
     }
 
     const data = await response.json();
+    const results: LocationResult[] = data.results || [];
 
-    return data.results || [];
+    const uniqueLocations = Array.from(new Map(results.map(loc => [loc.name, loc])).values());
+
+    return uniqueLocations;
   } catch (error) {
     console.error("Error fetching locations:", error);
     return null;
