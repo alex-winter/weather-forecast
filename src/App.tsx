@@ -23,13 +23,13 @@ function App() {
 
   // Function to handle location selection
   const handleLocationSelect = (name: string) => {
-    setQuery(name); // Set the input to the selected location name
-    setLocations(null); // Clear the list after selection
+    setQuery(name);
+    setLocations(null);
   };
 
   return (
-      <div className="container mt-5">
-        <h1 className="text-center mb-4">Weather Search</h1>
+      <div className="container text-bg-light my-4 p-4 search-container">
+        <h1 className="text-center mb-4">Weather Forecast</h1>
         <div className="input-group mb-3">
           <input
               type="text"
