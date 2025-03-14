@@ -4,6 +4,9 @@ const weatherApiBaseUrl = 'https://api.weatherapi.com/v1/';
 
 
 export const config = {
+
+    forecastDefaultAmountOfDays: 5,
+
     geoLocationApi: {
         baseUrl: geoLocationApiBaseUrl,
         search: geoLocationApiBaseUrl + 'search',

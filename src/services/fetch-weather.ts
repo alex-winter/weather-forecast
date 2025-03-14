@@ -14,15 +14,19 @@ export type WeatherForecast = {
  * Fetches the 5-day weather forecast for a given location.
  *
  * @param location - The name of the location (city).
+ * @param days - Amount of future days to return
  *
  * @returns An array of WeatherForecast objects or null if an error occurs.
  */
-export async function getWeatherForecast(location: string): Promise<WeatherForecast[] | null> {
+export async function getWeatherForecast(
+    location: string,
+    days: number = config.forecastDefaultAmountOfDays,
+): Promise<WeatherForecast[] | null> {
     try {
         const queryParameters = new URLSearchParams({
             key: config.weatherApi.apiKey,
             q: location,
-            days: '5',
+            days: days.toString(),
             aqi: 'no',
             alerts: 'no',
         });
