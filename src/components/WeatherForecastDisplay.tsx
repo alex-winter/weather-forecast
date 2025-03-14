@@ -12,7 +12,7 @@ const WeatherForecastDisplay: React.FC<WeatherForecastProps> = ({ weather }) => 
     return (
         <div className="mt-4">
             <h2 className="text-center">5-Day Weather Forecast</h2>
-            <div className="row">
+            <div className="d-flex justify-content-center gap-3 flex-wrap">
                 {weather.map((day, index) => (
                     <WeatherCard key={index} forecast={day} />
                 ))}
