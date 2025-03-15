@@ -4,10 +4,20 @@ import { LocationResult } from "../services/fetch-location";
 interface LocationListProps {
     locations: LocationResult[] | null;
     handleLocationSelect: (name: string) => void;
+    setVisible: (isVisible: boolean) => void;
+    visible: boolean;
 }
 
-const LocationList: React.FC<LocationListProps> = ({ locations, handleLocationSelect }) => {
-    if (!locations || locations.length === 0) return null;
+const LocationList: React.FC<LocationListProps> = ({ locations, handleLocationSelect, setVisible, visible }) => {
+
+    if (!locations || locations.length === 0 || !visible) {
+        return null;
+    }
+
+    const handleClick = (name: string) => {
+        handleLocationSelect(name);
+        setVisible(false);
+    };
 
     return (
         <ul className="list-group">
@@ -15,7 +25,7 @@ const LocationList: React.FC<LocationListProps> = ({ locations, handleLocationSe
                 <li
                     key={loc.id}
                     className="list-group-item"
-                    onClick={() => handleLocationSelect(loc.name)}
+                    onClick={() => handleClick(loc.name)}
                     style={{ cursor: "pointer" }}
                 >
                     {loc.name}, {loc.country}

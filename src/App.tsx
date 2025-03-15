@@ -12,12 +12,14 @@ function App() {
   const [query, setQuery] = useState("");
   const [locations, setLocations] = useState<LocationResult[] | null>(null);
   const [weather, setWeather] = useState<WeatherForecast[] | null>(null);
+  const [visible, setVisible] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchLocations = async () => {
       if (query.length > 2) {
         const results = await searchLocations(query);
         setLocations(results);
+        setVisible(true);
       } else {
         setLocations(null);
         setWeather(null);
@@ -33,13 +35,15 @@ function App() {
 
     const forecast = await getWeatherForecast(name);
     setWeather(forecast);
+
+    setVisible(false);
   };
 
   return (
       <div className="container mt-5">
         <h1 className="text-center mb-4">Weather Search</h1>
         <SearchBar query={query} setQuery={setQuery} />
-        <LocationList locations={locations} handleLocationSelect={handleLocationSelect} />
+        <LocationList locations={locations} handleLocationSelect={handleLocationSelect} setVisible={setVisible} visible={visible} />
         <WeatherForecastDisplay weather={weather} />
       </div>
   );
